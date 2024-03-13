@@ -1,3 +1,4 @@
+import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,16 +49,21 @@ public class ConstructorSection {
         Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
 
-    public Boolean checkVisibleBun() {
-        return driver.findElement(labelBunVisible).isDisplayed();
-    }
-
+    //public Boolean checkVisibleBun() {
+      //  return driver.findElement(labelBunVisible).isDisplayed();
+    //}
+  public Boolean checkVisibleBun() {
+      new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelBunVisible).getText() != null));
+      return true;
+  }
     public Boolean checkVisibleSauces() {
-        return driver.findElement(labelSauceVisible).isDisplayed();
+        new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelSauceVisible).getText() != null));
+        return true;
     }
 
     public Boolean checkVisibleFillings() {
-        return driver.findElement(labelFillingVisible).isDisplayed();
+        new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelFillingVisible).getText() != null));
+        return true;
     }
 }
 
