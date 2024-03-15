@@ -49,21 +49,24 @@ public class ConstructorSection {
         Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
 
-    //public Boolean checkVisibleBun() {
-      //  return driver.findElement(labelBunVisible).isDisplayed();
-    //}
-  public Boolean checkVisibleBun() {
+  public void checkVisibleBun() {
       new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelBunVisible).getText() != null));
-      return true;
+      String ExpectedText = "Булки";
+      String ActualText = driver.findElement(labelBunVisible).getText();
+      Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
   }
-    public Boolean checkVisibleSauces() {
+    public void checkVisibleSauces() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelSauceVisible).getText() != null));
-        return true;
+        String ExpectedText = "Соусы";
+        String ActualText = driver.findElement(labelSauceVisible).getText();
+        Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
 
-    public Boolean checkVisibleFillings() {
+    public void checkVisibleFillings() {
         new WebDriverWait(driver, 10).until(driver -> (driver.findElement(labelFillingVisible).getText() != null));
-        return true;
+        String ExpectedText = "Начинки";
+        String ActualText = driver.findElement(labelFillingVisible).getText();
+        Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
 }
 
