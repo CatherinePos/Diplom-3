@@ -18,5 +18,4 @@ public class PersonalPage {
         String ActualText = driver.findElement(labelAbout).getText();
         Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
-
 }

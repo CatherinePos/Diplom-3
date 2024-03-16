@@ -1,14 +1,18 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import Pojo.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @RunWith(Parameterized.class)
 public class RegisterTest {
@@ -25,12 +29,13 @@ public class RegisterTest {
 
     @Parameterized.Parameters
     public static Object[][] enterData() {
-        return new Object[][] {
-                { "Катерина", "posty@yandex.ru", "FatoR123" },
+        return new Object[][]{
+                {"Катерина", "posty@yandex.ru", "FatoR123"},
         };
     }
 
     private WebDriver driver;
+    private final By EnterModal = By.xpath(".//div/h2[text()='Вход']");
 
     @Before
     public void setUp() {
@@ -43,7 +48,6 @@ public class RegisterTest {
     public void setDown() {
         driver.quit();
     }
-
     @Test
     @DisplayName("Проверка успешной регистрации")
     public void testSuccessRegister() {
@@ -52,10 +56,10 @@ public class RegisterTest {
         objRegisterPage.enterEmail(Email);
         objRegisterPage.enterPassword(Password);
         objRegisterPage.clickButtonRegister();
-        DeleteUser deleteUser = new DeleteUser();
-        Response correctLoginWithExistingUser = deleteUser.getDataUser(new User(Email,Password, Name));
-        accessToken = correctLoginWithExistingUser.path("accessToken");
-        deleteUser.getDeleteUser(accessToken);
+        new WebDriverWait(driver, 10).until(driver -> (driver.findElement(EnterModal).getText() != null));
+        String ExpectedText = "Вход";
+        String ActualText = driver.findElement(EnterModal).getText();
+        Assert.assertEquals("Текст не соответствует ожидаемому результату", ExpectedText, ActualText);
     }
 
     @Test
@@ -69,4 +73,12 @@ public class RegisterTest {
         objRegisterPage.verifyErrorRegisterWithIncorrectPassword();
     }
 
+    @Test
+    @Description("Удаление пользователя")
+    public void testDeleteUser() {
+        DeleteUser deleteUser = new DeleteUser(driver);
+        Response correctLoginWithExistingUser = deleteUser.getDataUser(new User(Email, Password, Name));
+        accessToken = correctLoginWithExistingUser.path("accessToken");
+        if (accessToken != null) deleteUser.getDeleteUser(accessToken);
+    }
 }

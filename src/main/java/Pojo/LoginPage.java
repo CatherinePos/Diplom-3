@@ -16,14 +16,11 @@ public class LoginPage {
     private By buttonEnterRegistration = By.xpath(".//a[@href='/login']");
     private By buttonEnterForgot = By.xpath(".//a[@href='/login']");
 
-
     public LoginPage(WebDriver driver) { this.driver = driver; }
 
     public void clickButtonEnterMain() { driver.findElement(buttonEnterMain).click(); }
-    public void clickButtonEnterModal() { driver.findElement(buttonEnterModal).click(); }
+    public void clickButtonEnterModal() {driver.findElement(buttonEnterModal).click(); }
     public void clickButtonEnterPersonal() { driver.findElement(buttonEnterPersonal).click(); }
-    public void clickButtonEnterRegistration () { driver.findElement(buttonEnterRegistration).click(); }
-    public void clickButtonEnterForgot () { driver.findElement(buttonEnterForgot).click(); }
 
     public void enterEmail (String Email) {
         new WebDriverWait(driver, 3);
@@ -36,5 +33,4 @@ public class LoginPage {
         driver.findElement(fieldPassword).click();
         driver.findElement(fieldPassword).sendKeys(Password);
     }
-
 }

@@ -23,8 +23,8 @@ public class LoginTest {
 
     @Parameterized.Parameters
     public static Object[][] enterData() {
-        return new Object[][] {
-                { "posty@yandex.ru", "FatoR123"},
+        return new Object[][]{
+                {"posty@yandex.ru", "FatoR123"},
         };
     }
 
@@ -35,6 +35,7 @@ public class LoginTest {
         WebDriverManager.chromedriver().setup();
         driver = WebDriverCreator.createWebDriver();
     }
+
     @After
     public void setDown() {
         driver.quit();
@@ -47,9 +48,11 @@ public class LoginTest {
         driver = new ChromeDriver();
         driver.get("https://stellarburgers.nomoreparties.site");
         LoginPage objLoginPage = new LoginPage(driver);
+        ConstructorSection objConstructorSection = new ConstructorSection(driver);
         objLoginPage.clickButtonEnterMain();
         objLoginPage.enterEmail(Email);
         objLoginPage.enterPassword(Password);
         objLoginPage.clickButtonEnterModal();
+        objConstructorSection.verifyLoadConstructorSection();
     }
 }

@@ -3,9 +3,9 @@ package Pojo;
 
 public class User {
 
-    private final String email;
-    private final String password;
-    private final String name;
+    public final String email;
+    public final String password;
+    public final String name;
 
     public User(String email, String password, String name) {
         this.email = email;
